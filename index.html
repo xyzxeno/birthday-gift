@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Nisha ✨</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#0b0f1a;
+  --glass:rgba(255,255,255,0.06);
+  --accent:#ff4da6;
+  --accent2:#7a5cff;
+  --text:#f1f1f1;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Outfit',sans-serif;
+  scroll-behavior:smooth;
+}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  overflow-x:hidden;
+}
+
+/* Aurora Background */
+body::before{
+  content:'';
+  position:fixed;
+  width:200%;
+  height:200%;
+  background:
+  radial-gradient(circle at 20% 30%, #ff4da633, transparent),
+  radial-gradient(circle at 80% 70%, #7a5cff33, transparent),
+  radial-gradient(circle at 50% 50%, #00e0ff22, transparent);
+  animation:aurora 20s linear infinite;
+  z-index:-2;
+}
+
+@keyframes aurora{
+  0%{transform:translate(0,0)}
+  50%{transform:translate(-5%, -5%)}
+  100%{transform:translate(0,0)}
+}
+
+section{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  padding:40px;
+  text-align:center;
+}
+
+/* Glass Card */
+.glass{
+  background:var(--glass);
+  backdrop-filter:blur(25px);
+  border-radius:20px;
+  padding:40px;
+  box-shadow:0 0 40px rgba(0,0,0,0.4);
+  transition:0.5s;
+}
+
+.glass:hover{
+  transform:translateY(-10px);
+}
+
+h1{
+  font-size:3.5rem;
+  font-weight:800;
+}
+
+h2{
+  font-size:2rem;
+  margin-bottom:20px;
+}
+
+p{
+  line-height:1.8;
+}
+
+button{
+  margin-top:25px;
+  padding:12px 28px;
+  border:none;
+  border-radius:40px;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  color:white;
+  font-weight:600;
+  cursor:pointer;
+  transition:0.4s;
+}
+
+button:hover{
+  transform:scale(1.1);
+  box-shadow:0 0 25px var(--accent);
+}
+
+/* Typewriter */
+#typewriter{
+  font-size:1.6rem;
+  margin-top:25px;
+  min-height:60px;
+}
+
+/* Timeline */
+.timeline{
+  display:flex;
+  flex-direction:column;
+  gap:30px;
+  max-width:800px;
+}
+
+.timeline-item{
+  padding:25px;
+  border-left:3px solid var(--accent);
+  background:var(--glass);
+  border-radius:15px;
+  cursor:pointer;
+  transition:0.4s;
+}
+
+.timeline-item:hover{
+  transform:translateX(10px);
+}
+
+/* Fade In */
+.fade{
+  opacity:0;
+  transform:translateY(40px);
+  transition:1s;
+}
+
+.fade.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* Music */
+.music-btn{
+  position:fixed;
+  top:20px;
+  right:20px;
+  z-index:1000;
+}
+
+/* Canvas */
+canvas{
+  position:fixed;
+  top:0;
+  left:0;
+  z-index:-1;
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="stars"></canvas>
+
+<audio id="music" loop>
+<source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" type="audio/mp3">
+</audio>
+
+<button class="music-btn" onclick="toggleMusic()">🎵</button>
+
+<!-- HERO -->
+<section>
+  <h1>Happy Birthday, Nisha 💖</h1>
+  <div id="typewriter"></div>
+  <button onclick="document.getElementById('journey').scrollIntoView()">Begin Your Journey ✨</button>
+</section>
+
+<!-- JOURNEY -->
+<section id="journey">
+  <h2 class="fade">Our Beautiful Journey 🌸</h2>
+  <div class="timeline">
+    <div class="timeline-item fade">The day I realized you're not just special — you're unforgettable.</div>
+    <div class="timeline-item fade">Every late-night conversation that turned into laughter.</div>
+    <div class="timeline-item fade">The moments you stood strong even when things were hard.</div>
+    <div class="timeline-item fade">Every memory that feels like magic because you were in it.</div>
+  </div>
+</section>
+
+<!-- LETTER -->
+<section>
+  <div class="glass fade" style="max-width:700px;">
+    <h2>A Letter To You 💌</h2>
+    <p>
+      Dear Nisha,<br><br>
+      You are warmth in human form. You are strength wrapped in kindness.  
+      Your smile has the power to change entire days.  
+      Your heart is rare — soft, brave, and endlessly beautiful.  
+      <br><br>
+      On your birthday, I just want you to know:  
+      You are appreciated more than you realize.  
+      You are loved more than words can say.  
+      And you deserve a world filled with light.
+      <br><br>
+      Always cheering for you. Always here. 💖
+    </p>
+    <button onclick="celebrate()">Celebrate Nisha 🎉</button>
+  </div>
+</section>
+
+<script>
+/* Typewriter */
+const message="Today the universe celebrates the most beautiful soul — you.";
+let i=0;
+function type(){
+ if(i<message.length){
+   document.getElementById("typewriter").innerHTML+=message.charAt(i);
+   i++;
+   setTimeout(type,40);
+ }
+}
+type();
+
+/* Fade Scroll */
+const fades=document.querySelectorAll(".fade");
+const observer=new IntersectionObserver(entries=>{
+ entries.forEach(entry=>{
+   if(entry.isIntersecting){
+     entry.target.classList.add("show");
+   }
+ });
+});
+fades.forEach(el=>observer.observe(el));
+
+/* Music */
+function toggleMusic(){
+ const m=document.getElementById("music");
+ m.paused?m.play():m.pause();
+}
+
+/* Celebration Confetti */
+function celebrate(){
+ for(let i=0;i<180;i++){
+   const conf=document.createElement("div");
+   conf.style.position="fixed";
+   conf.style.width="8px";
+   conf.style.height="8px";
+   conf.style.background=`hsl(${Math.random()*360},100%,60%)`;
+   conf.style.left=Math.random()*window.innerWidth+"px";
+   conf.style.top="-10px";
+   conf.style.borderRadius="50%";
+   conf.style.zIndex=9999;
+   document.body.appendChild(conf);
+   conf.animate([
+     {transform:"translateY(0)"},
+     {transform:`translateY(${window.innerHeight}px)`}
+   ],{
+     duration:2000+Math.random()*3000,
+     iterations:1
+   });
+   setTimeout(()=>conf.remove(),5000);
+ }
+}
+
+/* Star Background */
+const canvas=document.getElementById("stars");
+const ctx=canvas.getContext("2d");
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+let stars=[];
+for(let i=0;i<120;i++){
+ stars.push({
+   x:Math.random()*canvas.width,
+   y:Math.random()*canvas.height,
+   r:Math.random()*1.5,
+   d:Math.random()*0.5
+ });
+}
+
+function animateStars(){
+ ctx.clearRect(0,0,canvas.width,canvas.height);
+ ctx.fillStyle="white";
+ stars.forEach(s=>{
+   s.y+=s.d;
+   if(s.y>canvas.height) s.y=0;
+   ctx.beginPath();
+   ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+   ctx.fill();
+ });
+ requestAnimationFrame(animateStars);
+}
+animateStars();
+
+window.addEventListener("resize",()=>{
+ canvas.width=window.innerWidth;
+ canvas.height=window.innerHeight;
+});
+</script>
+
+</body>
+</html>
